@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "602624460741",
+    "project_id": "mascotasapp-ismael",
+    "storage_bucket": "mascotasapp-ismael.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602624460741:android:1dc93189cc70d6d9dc2dac",
+        "android_client_info": {
+          "package_name": "com.ismael.mascotasapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602624460741-shte3jdn1s9u5b6v027oifn4l55hbk2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApcWXgGG_OrZOKZRmLr70pg-tGm0zlQWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602624460741-shte3jdn1s9u5b6v027oifn4l55hbk2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
