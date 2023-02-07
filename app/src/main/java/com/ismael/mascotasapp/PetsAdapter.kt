@@ -7,11 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-
 import com.ismael.mascotasapp.model.Pet
 
 class PetsAdapter(private var pets: MutableList<Pet>) : RecyclerView.Adapter<PetsAdapter.PetViewHolder>() {
-
 
     fun updatePetList(petList: MutableList<Pet>) {
         this.pets = petList
@@ -31,9 +29,8 @@ class PetsAdapter(private var pets: MutableList<Pet>) : RecyclerView.Adapter<Pet
         holder.agePet.text = pet.age.toString()
         holder.breedPet.text = pet.breed
 
-        Glide.with(holder.itemView.context)
-            .load(pet.imageURL)
-            .into(holder.petImage)
+        Glide.with(holder.itemView.context).load(pet.imageURL).into(holder.petImage)
+
 
 
     }
@@ -47,6 +44,9 @@ class PetsAdapter(private var pets: MutableList<Pet>) : RecyclerView.Adapter<Pet
             val breedPet = itemView.findViewById<TextView>(R.id.raza)
             val agePet = itemView.findViewById<TextView>(R.id.edad)
             val petImage = itemView.findViewById<ImageView>(R.id.photo)
+            val btnDeletePet = itemView.findViewById<ImageView>(R.id.btn_delete_pet)
+
+
         }
     }
 

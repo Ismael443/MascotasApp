@@ -37,7 +37,6 @@
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_launcher_foreground"
                     tools:ignore="ImageContrastCheck" />
 
             </androidx.cardview.widget.CardView>
@@ -93,7 +92,8 @@
             android:ems="10"
             android:hint="@string/name"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
             android:layout_width="match_parent"
@@ -108,7 +108,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/age"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
             android:layout_width="match_parent"
@@ -123,7 +124,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/raza"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Space
             android:layout_width="match_parent"

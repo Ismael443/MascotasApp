@@ -3,23 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_viewPets">
+
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.ismael.mascotasapp.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_viewPets"
         android:name="com.ismael.mascotasapp.ui.homePets.HomePetFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/mis_mascotas"
         tools:layout="@layout/fragment_view_pets" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_addPets"
         android:name="com.ismael.mascotasapp.ui.createPet.CreatePetFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/registrar_mascota"
         tools:layout="@layout/fragment_add_pet" />
 </navigation>

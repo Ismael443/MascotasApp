@@ -25,4 +25,6 @@
     <string name="txtbtn_imgPet">Borrar</string>
     <string name="txtbtn_imgEdit">Editar</string>
     <string name="btn_add_pet">Registrar mascota</string>
+    <string name="registrar_mascota">Registrar mascota</string>
+    <string name="mis_mascotas">Mis mascotas</string>
 </resources>

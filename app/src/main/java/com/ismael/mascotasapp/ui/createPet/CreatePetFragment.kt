@@ -1,19 +1,26 @@
 package com.ismael.mascotasapp.ui.createPet
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismael.mascotasapp.R
 import com.ismael.mascotasapp.model.Pet
+import java.util.*
 
 
+@Suppress("DEPRECATION")
 class CreatePetFragment : Fragment() {
 
     private lateinit var imagePet: ImageView
@@ -22,8 +29,13 @@ class CreatePetFragment : Fragment() {
     private lateinit var breedPet: EditText
     private lateinit var btnAddPet: Button
     private lateinit var btnEditImage: Button
+    private lateinit var btnDeleteImage : Button
     private lateinit var db: FirebaseFirestore
+    private val viewModel by viewModels<CreatePetVM>()
+    private lateinit var activity: AppCompatActivity
 
+    private val OK_GALLERY = 26
+    private var imageUri: Uri? = null
 
 
     override fun onCreateView(
@@ -32,6 +44,10 @@ class CreatePetFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_pet, container, false)
 
+        activity = requireActivity() as AppCompatActivity
+        val currentUser = activity.intent.extras?.getString("email")
+
+        db = FirebaseFirestore.getInstance()
 
         imagePet = view.findViewById(R.id.photo)
         namePet = view.findViewById(R.id.addPetName)
@@ -39,6 +55,15 @@ class CreatePetFragment : Fragment() {
         breedPet = view.findViewById(R.id.addPetRaza)
         btnAddPet = view.findViewById(R.id.btnAddPet)
         btnEditImage = view.findViewById(R.id.btn_photo)
+        btnDeleteImage = view.findViewById(R.id.btn_remove_photo)
+
+        btnEditImage.setOnClickListener {
+            chooseImageGallery()
+        }
+
+        btnDeleteImage.setOnClickListener {
+            imagePet.setImageDrawable(null)
+        }
 
         btnAddPet.setOnClickListener {
             val name = namePet.text.toString()
@@ -47,25 +72,29 @@ class CreatePetFragment : Fragment() {
             val imageURL = imagePet.toString()
             val pet = Pet(name, breed,age, imageURL)
 
-            db.collection("pets")
-                .add(pet)
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        activity,
-                        "MASCOTA REGISTRADA CON ÉXITO",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    //SI SE REGISTRA CORRECTAMENTE, LIMPIAMOS LOS CAMPOS Y ESTABLECEMOS UNA IMAGEN
-                    //POR DEFECTO
-                    namePet.text.clear()
-                    agePet.text.clear()
-                    breedPet.text.clear()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(activity, "ERROR AL REGISTRAR LA MASCOTA", Toast.LENGTH_SHORT).show()
-                }
+            viewModel.addPetToUser(pet, currentUser!!, activity)
+            namePet.text.clear()
+            agePet.text.clear()
+            breedPet.text.clear()
         }
         return view
     }
+
+    private fun chooseImageGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, OK_GALLERY)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == OK_GALLERY){
+
+                imageUri = data?.data
+                imagePet.setImageURI(imageUri)
+            }
+        }
+    }
+
 }

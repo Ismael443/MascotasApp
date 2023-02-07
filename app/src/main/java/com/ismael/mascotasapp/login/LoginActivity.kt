@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import com.ismael.mascotasapp.MainActivity
@@ -42,8 +41,7 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        val user = auth.currentUser
-                        updateUI(user)
+                        navigateToHome(email)
 
                     } else {
                         Toast.makeText(baseContext, "EMAIL O CONTRASEÑA INCORRECTOS", Toast.LENGTH_SHORT)
@@ -53,12 +51,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUI(user: FirebaseUser?) {
-        if (user != null) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        } else {
-            Toast.makeText(this, "ERROR AL INICIAR SESIÓN", Toast.LENGTH_SHORT).show()
+    private fun navigateToHome(email : String) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("email", email)
         }
+        startActivity(intent)
     }
 }

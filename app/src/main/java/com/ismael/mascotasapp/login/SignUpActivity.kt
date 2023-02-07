@@ -42,14 +42,14 @@ class SignUpActivity : AppCompatActivity() {
                     "Correo_Electrónico" to email
                 )
 
-                db.collection("Users").add(user)
+                db.collection("usuarios").document(email).set(user)
 
 
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+                            navigateToHome(email)
                             Toast.makeText(this, "USUARIO REGISTRADO CON ÉXITO", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this, MainActivity::class.java))
 
                         } else {
                             Toast.makeText(this, "ERROR EN EL REGISTRO DE USUARIO", Toast.LENGTH_SHORT).show()
@@ -60,5 +60,12 @@ class SignUpActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    private fun navigateToHome(email : String) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("email", email)
+        }
+        startActivity(intent)
     }
 }

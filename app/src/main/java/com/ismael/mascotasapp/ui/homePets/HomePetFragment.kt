@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,13 +18,14 @@ class HomePetFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PetsAdapter
+    private val vm by viewModels<HomePetVM>()
 
-
-    private val viewModel by viewModels<HomePetVM>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_view_pets, container, false)
 
+        val currentUser = activity?.intent?.extras?.getString("email")
+        val viewModel : HomePetVM by viewModels{HomePetVMFactory(currentUser!!)}
 
         searchView = rootView.findViewById(R.id.search_bar)
         recyclerView = rootView.findViewById(R.id.recycler_view)
@@ -42,7 +43,7 @@ class HomePetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadPetList()
+        vm.loadPetList()
     }
 
 }
